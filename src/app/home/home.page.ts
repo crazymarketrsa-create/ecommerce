@@ -234,6 +234,10 @@ export class HomePage {
     this.activeFilter = label;
   }
 
+  get topTrending(): TrendingStore[] {
+    return this.trending.slice(0, 5);
+  }
+
   get filteredStores(): Store[] {
     const term = this.searchTerm.trim().toLowerCase();
     if (!term) {

@@ -120,8 +120,8 @@
 
       <!-- Trending panel -->
       <aside class="trending">
-        <h2 class="trending-title">Trending Stores — Top 10</h2>
-        <div class="trending-card" *ngFor="let t of trending" [style.background]="t.bg">
+        <h2 class="trending-title">Trending Stores — Top 5</h2>
+        <div class="trending-card" *ngFor="let t of topTrending" [style.background]="t.bg">
           <div class="trending-icon" [style.color]="t.iconColor">
             <svg *ngIf="t.icon === 'flame'" viewBox="0 0 24 24"><path d="M12 3c1 3-1 4-2 6-1 2 0 4 2 4s3-2 2-4c3 2 4 5 2 8-1 2-4 3-6 3s-6-2-6-6c0-4 4-6 6-11z" fill="currentColor"/></svg>
             <svg *ngIf="t.icon === 'sparkles'" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z" fill="currentColor"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9L18 14z" fill="currentColor"/></svg>
