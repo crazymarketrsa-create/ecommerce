@@ -445,4 +445,40 @@ ion-content {
   .brand-name {
     font-size: 20px;
   }
+
+  /* Stack the header: row 1 = brand + avatar + Sign Out, row 2 = full-width search */
+  .app-header {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+  }
+
+  .header-right {
+    /* let the children flow directly and wrap onto a new row */
+    display: contents;
+  }
+
+  .avatar {
+    order: 1;
+  }
+
+  .signout {
+    order: 2;
+  }
+
+  .search {
+    /* full-width search bar on its own row, below the brand line */
+    order: 3;
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .search input {
+    min-width: 0;
+  }
 }
