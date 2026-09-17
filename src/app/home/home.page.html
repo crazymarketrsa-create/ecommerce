@@ -29,7 +29,10 @@
       <div class="header-right">
         <div class="search">
           <svg viewBox="0 0 24 24" class="search-ico"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input type="text" placeholder="Search stores..." />
+          <input type="text" placeholder="Search stores..." [(ngModel)]="searchTerm" />
+          <button *ngIf="searchTerm" type="button" class="search-clear" (click)="clearSearch()" aria-label="Clear search">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
         </div>
 
         <div class="location">
@@ -76,7 +79,7 @@
         <h2 class="section-title">Stores</h2>
 
         <div class="store-grid">
-          <div class="store-card" *ngFor="let s of stores">
+          <div class="store-card" *ngFor="let s of filteredStores">
             <div class="store-icon" [style.background]="s.iconColor">
               <svg *ngIf="s.icon === 'basket'" viewBox="0 0 24 24"><path d="M5 9h14l-1.2 8.5a2 2 0 01-2 1.5H8.2a2 2 0 01-2-1.5L5 9z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M8 9l2-4M16 9l-2-4M9 12v3M15 12v3M12 12v3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
               <svg *ngIf="s.icon === 'fish'" viewBox="0 0 24 24"><path d="M4 12c3-5 10-5 14 0-4 5-11 5-14 0z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M18 12c1-1 2-1 3-2v4c-1-1-2-1-3-2z" fill="#fff"/><circle cx="8" cy="11" r="1" fill="#fff"/></svg>
@@ -104,9 +107,14 @@
           </div>
         </div>
 
-        <div class="load-more-wrap">
-          <div class="showing">Showing 20 of 100 stores</div>
-          <button class="load-more">Load 20 more ⌄</button>
+        <div class="no-results" *ngIf="filteredStores.length === 0">
+          <p>No stores match "<strong>{{ searchTerm }}</strong>".</p>
+          <button class="load-more" (click)="clearSearch()">Clear search</button>
+        </div>
+
+        <div class="load-more-wrap" *ngIf="filteredStores.length > 0">
+          <div class="showing">Showing {{ filteredStores.length }} of {{ stores.length }} stores</div>
+          <button class="load-more" *ngIf="!searchTerm">Load 20 more ⌄</button>
         </div>
       </div>
 

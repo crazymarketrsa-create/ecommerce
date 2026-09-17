@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { IonContent } from '@ionic/angular/standalone';
 
 interface Store {
@@ -31,7 +32,7 @@ interface FilterChip {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent],
+  imports: [CommonModule, FormsModule, IonContent],
 })
 export class HomePage {
   navItems = [
@@ -50,6 +51,8 @@ export class HomePage {
   ];
 
   activeFilter = 'All';
+
+  searchTerm = '';
 
   stores: Store[] = [
     {
@@ -229,5 +232,19 @@ export class HomePage {
 
   setFilter(label: string): void {
     this.activeFilter = label;
+  }
+
+  get filteredStores(): Store[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      return this.stores;
+    }
+    return this.stores.filter((s) =>
+      [s.name, s.area, s.address].some((field) => field.toLowerCase().includes(term))
+    );
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
   }
 }
